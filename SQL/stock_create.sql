@@ -4,9 +4,9 @@ USE SCHEMA stock;
 CREATE STORAGE INTEGRATION stock_integration
     type = external_stage
     storage_provider = s3
-    storage_aws_role_arn = 'arn:aws:iam::010928224012:role/stock_snowflake_integration'
+    storage_aws_role_arn = 'your_arns'
     enabled = true
-    storage_allowed_locations = ( 's3://stock-data203/transformed_data/');
+    storage_allowed_locations = ( 'Your_bucket_uri');
 
 --desc integration stock_integration;
 
@@ -19,7 +19,7 @@ CREATE OR REPLACE FILE FORMAT stock_csv_format
     field_optionally_enclosed_by = '"'; 
 
 CREATE OR REPLACE STAGE stock_stage
-    url = 's3://stock-data203/transformed_data/'
+    url = 'Bucket_uri'
     file_format = stock_csv_format
     storage_integration = stock_integration;
 
@@ -134,4 +134,4 @@ CREATE OR REPLACE TABLE fact_weekly_stock_prize as (
     on s.Date = d.Date 
 );
 
-select * from fact_weekly_stock_prize;
+--select * from fact_weekly_stock_prize;
